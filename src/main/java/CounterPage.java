@@ -16,6 +16,12 @@ public class CounterPage extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+//        request.getParameter("reset").equals("true");
+        boolean reset = Boolean.valueOf(request.getParameter("reset"));
+        if (reset) {
+            hitCount = 0;
+        }
         hitCount++;
         PrintWriter out = response.getWriter();
         String title = "Total Number of Hits";
