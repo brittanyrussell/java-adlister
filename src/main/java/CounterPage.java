@@ -1,3 +1,4 @@
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -6,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "counterpage", urlPatterns = "/count")
-public class counterpage extends HttpServlet {
+@WebServlet(name = "CounterPage", urlPatterns = "/count")
+public class CounterPage extends HttpServlet {
     private int hitCount;
     public void init() {
         hitCount = 0;
