@@ -18,7 +18,7 @@ public class counterpage extends HttpServlet {
         hitCount++;
         PrintWriter out = response.getWriter();
         String title = "Total Number of Hits";
-        String docType = "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
+        String docType = "<!doctype html>\n";
 
         out.println(docType +
                 "<html>\n" +
