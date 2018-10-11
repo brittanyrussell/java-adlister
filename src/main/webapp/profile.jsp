@@ -7,6 +7,7 @@
 </head>
 <body>
 <jsp:include page="partials/navbar.jsp"></jsp:include>
-<h1>Welcome Admin</h1>
+<h1>Welcome to the Admin</h1>
+
 </body>
 </html>
