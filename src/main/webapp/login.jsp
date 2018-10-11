@@ -18,7 +18,6 @@
       <input type="submit" value="login"/>
 </form>
 
-
 <c:if test="${param.username.equals('admin') && param.password.equals('password')}">
     <% response.sendRedirect("profile.jsp");%>
 </c:if>
