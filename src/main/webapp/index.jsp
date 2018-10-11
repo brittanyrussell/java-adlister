@@ -6,9 +6,11 @@
         FIZZBUZZ
     </title>
 
-
+    <jsp:include page="partials/head.jsp"></jsp:include>
 </head>
 <body>
+<jsp:include page="partials/navbar.jsp"></jsp:include>
+
 <c:forEach var="item" begin="1" end="30">
     <c:choose>
         <c:when test="${item%15==0}">
