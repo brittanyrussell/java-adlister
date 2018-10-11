@@ -13,8 +13,8 @@
 <br>
 
 <form action="login.jsp" method="post">
-      Username: <input type="text" name="username"/><br><br>
-      Password: <input type="password" name="password"/><br><br>
+      Username: <input type="text" name="username"/>
+      Password: <input type="password" name="password"/>
       <input type="submit" value="login"/>
 </form>
 
