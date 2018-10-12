@@ -14,8 +14,8 @@
 <body>
 <h1>Here are all the ads!</h1>
 <c:forEach var="Ad" items="${Ad}">
-    <h4>${Ad.title}</h4>
-    <h4>${Ad.description}</h4>
+    <h3>${Ad.title}</h3>
+    <p>${Ad.description}</p>
 </c:forEach>
 </body>
 </html>
