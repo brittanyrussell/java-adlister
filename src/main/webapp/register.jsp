@@ -15,6 +15,9 @@
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
+<h1>Register Here</h1>
+</div>
+<div class="container">
 <form action="/register" method="POST">
     <div class="form-group">
         <label for="username">Create Username</label>

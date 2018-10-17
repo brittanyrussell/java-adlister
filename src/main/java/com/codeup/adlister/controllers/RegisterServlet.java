@@ -26,7 +26,7 @@ public class RegisterServlet extends HttpServlet {
             doGet(request, response);
         } else {
             // TODO: create a new user based off of the submitted information
-            User user = new User(username, email, password);
+            User user = new User(email, password, username);
             DaoFactory.getUsersDao().insert(user);
             request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
         }
