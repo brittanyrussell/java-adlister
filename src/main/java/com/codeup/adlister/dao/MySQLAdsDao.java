@@ -18,7 +18,7 @@ public class MySQLAdsDao implements Ads {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
                 config.getUrl(),
-                config.getUser(),
+                config.getUsername(),
                 config.getPassword()
             );
         } catch (SQLException e) {
@@ -28,9 +28,10 @@ public class MySQLAdsDao implements Ads {
 
     @Override
     public List<Ad> all() {
-        Statement stmt = null;
+        PreparedStatement stmt = null;
+        String query = "SELECT * FROM ads";
         try {
-            stmt = connection.createStatement();
+            stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = stmt.executeQuery("SELECT * FROM ads");
             return createAdsFromResults(rs);
         } catch (SQLException e) {
@@ -41,7 +42,7 @@ public class MySQLAdsDao implements Ads {
     @Override
     public Long insert(Ad ad) {
         try {
-            Statement stmt = connection.createStatement();
+            PreparedStatement stmt = connection.prepareStatement(createInsertQuery(ad), Statement.RETURN_GENERATED_KEYS);
             stmt.executeUpdate(createInsertQuery(ad), Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
