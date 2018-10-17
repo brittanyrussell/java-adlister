@@ -56,7 +56,8 @@ Config config = new Config();
 
     @Override
     public Long insert(Ad ad) {
-        String query = String.format("insert into ads(title, description) values('%s','%s')", ad.getTitle(), ad.getDescription());
+        System.out.println("get here");
+        String query = String.format("insert into ads(user_id, title, description) values('%s', '%s','%s')", ad.getUserId(), ad.getTitle(), ad.getDescription());
         try {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate( query, Statement.RETURN_GENERATED_KEYS);
