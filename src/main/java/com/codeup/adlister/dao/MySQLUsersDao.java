@@ -4,6 +4,7 @@ import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,48 @@ public class MySQLUsersDao implements Users {
         }
     }
 
+    @Override
+    public User findByPassword(String password)  {
+        String sql = "SELECT * FROM users WHERE password = ? LIMIT 1";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, password);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new User(
+                        resultSet.getLong("id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("email"),
+                        resultSet.getString("password")
+                );
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding user by password!", e);
+        }
+    }
+//        try {
+//            PreparedStatement statement = connection.prepareStatement(sql);
+//
+//            statement.setString(1, password);
+//            ResultSet resultSet = statement.executeQuery();
+//            if (resultSet.next()) {
+//                return new User(
+//                        resultSet.getLong("id"),
+//                        resultSet.getString("username"),
+//                        resultSet.getString("email"),
+//                        resultSet.getString("password")
+//                );
+//            } else {
+//                return null;
+//            }catch (SQLException e) {
+//                throw new RuntimeException("Error finding user by username!", e);
+//            }
+//        }
+
 
     @Override
     public User findByUsername(String username) {
@@ -32,13 +75,9 @@ public class MySQLUsersDao implements Users {
         String sql = "SELECT * FROM users WHERE username = ? LIMIT 1";
 
         try {
-            //create a prepared statement and pass the sql:
             PreparedStatement statement = connection.prepareStatement(sql);
-            //bind the parameters:
             statement.setString(1, username);
-            //now execute the query and it will return a ResultSet:
             ResultSet resultSet = statement.executeQuery();
-            //if there's at least one row, build a User
             if (resultSet.next()) {
                 return new User(
                         resultSet.getLong("id"),
@@ -85,27 +124,31 @@ public class MySQLUsersDao implements Users {
         }
     }
 
-//    private String createInsertQuery(User user) {
-//        return "INSERT INTO users(email, password, username) VALUES "
-//                + "(" + user.getEmail() + ", "
-//                + "'" + user.getPassword() + ", "
-//                + "'" + user.getUsername() +"')";
-//    }
 
-//    private User extractUsers(ResultSet rs) throws SQLException {
-//        return new User(
-//                rs.getLong("id"),
-//                rs.getString("username"),
-//                rs.getString("email"),
-//                rs.getString("password")
-//        );
-//    }
-//
-//    private List<User> createUsersFromResults(ResultSet rs) throws SQLException {
-//        List<User> users = new ArrayList<>();
-//        while (rs.next()) {
-//            users.add(extractUsers(rs));
-//        }
-//        return users;
-//    }
+
+
+
+    private String createInsertQuery(User user) {
+        return "INSERT INTO users(email, password, username) VALUES "
+                + "(" + user.getEmail() + ", "
+                + "'" + user.getPassword() + ", "
+                + "'" + user.getUsername() +"')";
+    }
+
+    private User extractUsers(ResultSet rs) throws SQLException {
+        return new User(
+                rs.getLong("id"),
+                rs.getString("username"),
+                rs.getString("email"),
+                rs.getString("password")
+        );
+    }
+
+    private List<User> createUsersFromResults(ResultSet rs) throws SQLException {
+        List<User> users = new ArrayList<>();
+        while (rs.next()) {
+            users.add(extractUsers(rs));
+        }
+        return users;
+    }
 }
